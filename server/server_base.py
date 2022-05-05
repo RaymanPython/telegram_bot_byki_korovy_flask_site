@@ -9,6 +9,7 @@ import sqlalchemy.ext.declarative as dec
 import datetime
 from sqlalchemy import orm
 from data.users import User
+from data.global_User import Global_User
 from data import db_session
 from flask import json
 from forms.user import RegisterForm
@@ -53,13 +54,13 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        user = User(
+        global_user = Global_User(
             name=form.name.data,
             email=form.email.data,
             about=form.about.data
         )
-        user.set_password(form.password.data)
-        db_sess.add(user)
+        global_user.set_password(form.password.data)
+        db_sess.add(global_user)
         db_sess.commit()
         return redirect('/index')
     return render_template('register.html', title='Регистрация', form=form)
