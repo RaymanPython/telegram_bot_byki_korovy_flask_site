@@ -16,7 +16,7 @@ class User(SqlAlchemyBase):
     records = orm.relation("User_records", back_populates='user')
 
     def __str__(self):
-        return f'{self.realname, self.records}'
+        return f'{self.realname} {str(self.records[0])}'
 
 
 class User_records(SqlAlchemyBase):
@@ -32,4 +32,8 @@ class User_records(SqlAlchemyBase):
     user = orm.relation('User')
 
     def __str__(self):
-        return f'{self.records}'
+       s = f'{self.records}'
+       s = s.replace("'", "")
+       s = s.replace("{", "")
+       s = s.replace("}", "")
+       return s

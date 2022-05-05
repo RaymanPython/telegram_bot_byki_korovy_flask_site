@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import sqlalchemy.ext.declarative as dec
 import datetime
 from sqlalchemy import orm
-from data.users import User
+from data.users import User, User_records
 from data.global_User import Global_User
 from data import db_session
 from flask import json
@@ -81,11 +81,20 @@ def users():
             user = User()
             user.username = username
             db_sess.add(user)
+            db_sess.commit()
+            user_records = User_records(user_id=user.id, records=str(records))
+            db_sess.add(user_records)
+            db_sess.commit()
+            print(user_records)
+        else:
+            user_records = db_sess.query(User_records).filter(User_records.user_id == user.id).first()
+            print(user_records)
         user.realname = realname
-        user.records = str(records)
+        print(user_records)
+        user_records.records = str(records)
         user.created_date = datetime.datetime.now()
         db_sess.commit()
-        return '5'
+        return 'None'
     else:
         abort(405)
 
