@@ -9,4 +9,4 @@
 
 main.py - хпауск телграмм бота
 
-в папке server - server_base.py запуск сетевой бащы данных и сайта на FLask
+в папке server - server_base.py запуск сетевой базы данных и сайта на FLask
